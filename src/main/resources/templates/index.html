@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Change language</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+  
+  	<p th:text="#{index.choose-locale}">Choose a locale</p>
+  	<!--/* 
+  	We use dirty tricks to preserve the current url when switching locales
+  	*/-->
+  	<ul th:with="currentUrl=(${#httpServletRequest.servletPath + '?' + #strings.defaultString(#httpServletRequest.queryString, '').replaceAll('^lang=[a-z]{2}[&amp;]?', '').replaceAll('&amp;lang=[a-z]{2}', '')})">
+        <li>
+            <a th:href="@{${currentUrl}(lang='fr')}">fr</a>
+        </li>
+        <li>
+            <a th:href="@{${currentUrl}(lang='en')}">en</a>
+        </li>
+    </ul>
+  	
+  	<div>
+  		Current locale: <span th:text="${#locale}">en_CA</span>
+    </div>
+    
+    <p th:text="#{index.welcome}">Welcome!</p>
+  
+  </body>
+
+</html>
